@@ -1,5 +1,5 @@
 import './styles.css';
-import { login, register, logout, getCurrentUser, onAuthStateChange } from './auth.js';
+import { login, register, logout, getCurrentUser, onAuthStateChange, checkIfCook } from './auth.js';
 import { calculateBMI, generateDietPlan } from './diet.js';
 import { supabase } from './supabase.js';
 
@@ -65,7 +65,8 @@ async function handleLogin(e) {
     loginBtn.textContent = 'Login to System';
     loginBtn.disabled = false;
   } else {
-    window.location.href = '/patient_form.html';
+    const isCook = await checkIfCook();
+    window.location.href = isCook ? '/cooks.html' : '/patient_form.html';
   }
 }
 
